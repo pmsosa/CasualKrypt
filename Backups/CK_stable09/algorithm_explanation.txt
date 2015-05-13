@@ -1,0 +1,139 @@
+ CASUALKRYPT V.03 ALGORITHM EXPLANATION
+ PEDRO MIGUEL SOSA
+ http://sosavpm.users.sourceforge.net/
+ Developer Email: konukoii@gmail.com
+
+-------------------------------<>
+
+NOTES: a. When we speak of adding/subtracting/multiplying/dividing letters. 
+          We refer to the idea that letters can be translated into ASCII characters that have a numeral value. 
+          We are adding/sub/mul/div those numeral values together.
+
+       b. ASCII RANGE (32 - 126) 
+       c. ASCII RANGE SIZE: 94
+
+
+-------------------------------<>
+
+ENCRYPTION Protocol:
+
+1. PASSWORD CONVERSION:
+   a. Convert each letter of the password into ASCII and add it up into TAP (Total Ascii Password)
+      his is going to be the key from now on.
+
+2. READ INPUT:
+   a. Open the file in Binary and read everything (until the EOF) inside it, and assing it to a string.
+      From now on this string will be refered to as "flow"
+
+3. BASE 64 ENCODING: 
+   a. Encode the string into base64.
+      This eliminates any random letter that escapes the basic ASCII range (ex: á,©,etc.)
+      This is important because when reading text from some binary files such as .exe or .jpg
+      there might not be a direct translation from what you are reading to ASCII
+
+4. ANARCHY VECTOR ALGORITHM:
+   a. Divide the length of flow into packets.
+      Each packet consists of "n" characters; where n is equal to the lenght of the password
+   b. Switch packet places, by inverting pairs.
+      Ex:
+      Original Vector: (1 2) (3 4) (5 6) (7 8) (9)
+                        | |   | |   | |   | |   |
+      Cyphered Vector: (2 1) (4 3) (6 5) (8 7) (9)
+
+5. PASSWORD DISPLACEMENT:
+   a. We will randomly select a letter from flow that will range from 1 to (TAP%password.lenght())
+   b. We will add to this letter of flow the last letter of the password.
+   c. We shall check if this letter is within our ASCII Range upper limit. 
+      If it is above we shall subtract 94 (the Range Size) from it, until it is within the ASCII RANGE
+      (Notice it cannot go under the range because there are no negative ascii values)
+
+   The idea behind this is that if someone breaks the header encryption and reverses the Basic CasualKrypt Algorithm
+   he still wont be able to decode in Base64 because of this ilegal charater.
+
+6. MAIN CASUALKRYPT ALGORITHM:
+   a. We will loop create a loop that will check every character in the flow string.
+   b. Each character will be converted into its ASCII numeral counterpart
+   c. If the character is within ASCII Range we will proceed, else we will append to "cylines" without modification.   
+      (Usually characters never are outside the ASCII Range, due to the b64 encryption. 
+       But if it is turned off then this measure is necessary)
+   d. We will add this character to TAP and to N (N is the number of letters already processed).
+   e. If it is above the ASCII RANGE we shall subtract 94 (the Range Size) from it, until it is within the ASCII RANGE
+      (Notice it cannot go under the range because there are no negative ascii values)
+   f. We will add one to N and proceed to append this character to cylines (short for Cyphered Lines)
+      (The purpose of N is to make every character encryption unique. Otherwise all "a" would be the same [a+TAP]) 
+   g. We then will go on to the next character until we reach the end of the string flow.
+   
+
+7. Corrupt Header Creation:
+
+   a. We will randomly choose an amount of corrupt characters to add to the string "body" (corrupt header body)
+      This amount will be range from (1 to 11+Password.length())
+   b. The character will be randomly chosen from the ASCII RANGE and appended to the body
+   c. When all the random characters have been appended we will append a pointer.
+      This pointer is chosen by password[TAP%password.length()]
+   d. This whole corrupt header body will be appended to the beginning of cylines
+
+8. OUTPUT FILE
+   we output the file with the user-defined output filename or with the default "Cyphered.txt"
+
+9. REPEAT THIS ALGORITHM
+   Repeats much times as the user defined (option "-r") [default 2 times]
+
+-------------------------------<>
+
+DECRYPTION Protocol:
+
+1. PASSWORD CONVERSION:
+   a. Convert each letter of the password into ASCII and add it up into TAP (Total Ascii Password)
+      his is going to be the key from now on.
+
+2. READ INPUT:
+   a. Open the file in Binary and read everything (until the EOF) inside it, and assing it to a string.
+      From now on this string will be refered to as "cylines" (Cyphered Lines)
+
+3. Corrupt Header Destruction:
+   a. We will calculate the pointer for this cyphered text by using:
+      password[TAP%password.length()]
+   b. We will now loop throught each character of cylines until we find the pointer.
+   c. When the pointer is found we will erase everything from the beginning of cylines to the pointer
+      (Effectivly eliminating the corrupt header)
+
+4. MAIN CASUALKRYPT ALGORITHM:
+   a. We will loop create a loop that will check every character in the cylines string.
+   b. Each character will be converted into its ASCII numeral counterpart
+   c. If the character is within ASCII Range we will proceed, else we will append to "cylines" without modification.   
+      (Usually characters never are outside the ASCII Range, due to the b64 encryption.
+       But if it is turned off then this measure is necessary)
+   d. We will subtract TAP and N (N is the number of letters already processed) from the selected character.
+   e. If it is below the ASCII Range we shall add 94 (the Range Size) from it, until it is within the ASCII RANGE
+      (Notice it cannot go over the range because there are no negative ascii values)
+   f. We will add one to N and proceed to append this character to cylines (short for Cyphered Lines)
+      (The purpose of N is to make every character encryption unique. Otherwise all "a" would be the same [a+TAP]) 
+   g. We then will go on to the next character until we reach the end of the string cylines.
+
+5. PASSWORD DISPLACEMENT:
+   a. We will select the letter from cylines that is the Displaced Letter by using:
+      Displaced Number: 1+ (TAP%password.lenght())
+   b. We will subtract to this letter of flow the last letter of the password.
+   c. We shall check if this letter is within our ASCII Range lower limit. 
+      If it is above we shall add 94 (the Range Size) from it, until it is within the ASCII RANGE
+      (Notice it cannot go under the range because there are no negative ascii values)
+
+6. ANARCHY VECTOR ALGORITHM:
+   a. Divide the length of flow into packets.
+      Each packet consists of "n" characters; where n is equal to the lenght of the password
+   b. Switch packet places, by inverting pairs.
+      Ex:
+      Cyphered Vector: (2 1) (4 3) (6 5) (8 7) (9)
+                        | |   | |   | |   | |   |
+      Original Vector: (1 2) (3 4) (5 6) (7 8) (9)
+      
+7. BASE 64 ENCODING: 
+   a. Decode the string into base64.
+      This re-creates any random letter that escapes the basic ASCII range (ex: á,©,etc.)
+
+8. OUTPUT FILE
+   we output the file with the user-defined output filename or with the default "Cyphered.txt"
+
+9. REPEAT THIS ALGORITHM
+   Repeats much times as the user defined (option "-r") [default 2 times]

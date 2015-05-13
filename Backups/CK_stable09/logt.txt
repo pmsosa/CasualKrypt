@@ -1,0 +1,9 @@
+
+File Cyphering:
+ casualkrypt -[mode] -[options] -o [OUTfile] -i [INfile] -p [Password]
+
+On-The-Go Cyphering:
+ casualkrypt -[mode] -[options] -o [OUTfile] -p [Password] -msg
+
+
+Try 'casualkrypt --help' for more options

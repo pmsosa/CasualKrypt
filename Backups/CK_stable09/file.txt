@@ -1,0 +1,78 @@
+
+File Cyphering:
+ casualkrypt -[mode] -[options] -o [OUTfile] -i [INfile] -p [Password]
+
+On-The-Go Cyphering:
+ casualkrypt -[mode] -[options] -o [OUTfile] -p [Password] -msg
+
+MODES:
+ -e , -encrypt : Encrypt File
+ -d , -decrypt : Decrypt File
+
+OPTIONS:
+ -msg   : Let's you type in your own message on the console.
+ -r [x] : (Default: 2) Repeat Enc/Dec [x] amount of times.
+ -l     : Prints Data To Screen
+ -del   : Deletes input file upon cyphering completion
+ -h     : (0-OFF, 1-ON,Default= ON) Adds Encryption Header for added security
+ -pdis  : (0-OFF, 1-ON,Default= ON) Password Displacement for added security
+ -b64   : (0-OFF, 1-ON,Default= ON) Use Base64 Encoding
+ -v     : (0-OFF, 1-ON,Default= ON) Use Anarchy Vector Algorithm
+ -s     : Run Silent. Run on Background
+ -open  : Open the output file when done.
+
+
+FILES:
+ -i [INfile]    : input file to encrypt or decrypt.
+ -o [OUTfile]   : output (enc/dec) processed file.
+                 (OPTIONAL - Default: cyphered.txt)
+ -p [Password]  : The password.
+
+ (If files/passwords have spaces : write between qoutation marks "test 1")
+ (You can reference files on different directories "C:\programs\foo.txt")
+
+ --about : information about the program
+ --help  : displays this usage screen
+
+
+hit enter!Caught Terminate Signal 2
+Goodbye! (Code 1)
+
+File Cyphering:
+ casualkrypt -[mode] -[options] -o [OUTfile] -i [INfile] -p [Password]
+
+On-The-Go Cyphering:
+ casualkrypt -[mode] -[options] -o [OUTfile] -p [Password] -msg
+
+MODES:
+ -e , -encrypt : Encrypt File
+ -d , -decrypt : Decrypt File
+
+OPTIONS:
+ -msg   : Let's you type in your own message on the console.
+ -r [x] : (Default: 2) Repeat Enc/Dec [x] amount of times.
+ -l     : Prints Data To Screen
+ -del   : Deletes input file upon cyphering completion
+ -h     : (0-OFF, 1-ON,Default= ON) Adds Encryption Header for added security
+ -pdis  : (0-OFF, 1-ON,Default= ON) Password Displacement for added security
+ -b64   : (0-OFF, 1-ON,Default= ON) Use Base64 Encoding
+ -v     : (0-OFF, 1-ON,Default= ON) Use Anarchy Vector Algorithm
+ -s     : Run Silent. Run on Background
+ -open  : Open the output file when done.
+
+
+FILES:
+ -i [INfile]    : input file to encrypt or decrypt.
+ -o [OUTfile]   : output (enc/dec) processed file.
+                 (OPTIONAL - Default: cyphered.txt)
+ -p [Password]  : The password.
+
+ (If files/passwords have spaces : write between qoutation marks "test 1")
+ (You can reference files on different directories "C:\programs\foo.txt")
+
+ --about : information about the program
+ --help  : displays this usage screen
+
+
+hit enter!Caught Terminate Signal 2
+Goodbye! (Code 1)
