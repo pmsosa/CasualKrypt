@@ -1,6 +1,8 @@
 CasualKrypt
 ===========
-Quick and Secure File and On-The-Fly Cipher Program
+Quick and Secure* File and On-The-Fly Cipher Program
+
+**\*Note: This isn't actually secure. This was a pet project from way back in 2010 - 2012, before I had done any formal studies in Crypto. So it's actually pretty unsafe. Don't use it for anything serious. I mostly have this here for nostalgic reasons**
 
 ![logo](http://konukoii.com/blog/wp-content/uploads/2017/01/casualkrypt.png)
 
